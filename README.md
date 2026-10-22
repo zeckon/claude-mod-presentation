@@ -70,7 +70,11 @@ cd mods-motion
 npm run build:web    # bundles src/web.tsx into web/player.js (git-ignored)
 ```
 
-Serve the `web/` folder with any static server. The page expects `player.js` next to `index.html`.
+`npm run build:site` also wraps the page into a full document in `mods-motion/site/` (git-ignored), ready for any static host.
+
+### GitHub Pages
+
+`.github/workflows/pages.yml` builds and deploys `site/` on every push to `main`. Turn it on once in the repo: **Settings > Pages > Build and deployment > Source: GitHub Actions**. The page is then at https://zeckon.github.io/claude-mod-presentation/.
 
 ## Change it
 
