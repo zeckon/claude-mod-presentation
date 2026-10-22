@@ -23,7 +23,7 @@ export const Files: React.FC = () => {
 					const on = f >= T0 && idx === i;
 					return (
 						<div key={fl.path} style={{opacity: ramp(f, 14 + i * 8, 30 + i * 8) * (on ? 1 : 0.5), color: on ? C.text : C.dim, background: on ? '#d9775722' : 'transparent', padding: '0 14px', margin: '0 -14px', borderRadius: 8}}>
-							{i === FILES.length - 1 ? '└─ ' : '├─ '}
+							{i === FILES.length - 1 ? '`-- ' : '|-- '}
 							{fl.path}
 						</div>
 					);

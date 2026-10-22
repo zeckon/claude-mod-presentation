@@ -61,6 +61,17 @@ Check a single frame:
 npx remotion still ClaudeMods out/frame.png --frame=250
 ```
 
+## The web page
+
+`mods-motion/web/index.html` plays the film with Remotion's `<Player>`, with chapter links and the install commands.
+
+```bash
+cd mods-motion
+npm run build:web    # bundles src/web.tsx into web/player.js (git-ignored)
+```
+
+Serve the `web/` folder with any static server. The page expects `player.js` next to `index.html`.
+
 ## Change it
 
 - **Timing:** scene lengths are in `SCENES` in `mods-motion/src/Film.tsx`; the total is derived from them.

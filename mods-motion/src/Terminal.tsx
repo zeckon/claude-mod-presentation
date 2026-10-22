@@ -58,7 +58,7 @@ export const Terminal: React.FC<Props> = ({body, hintOpacity, cursorOn, children
 				}}
 			>
 				<span style={{color: C.clay}}>{'> '}</span>
-				<span style={{opacity: cursorOn ? 1 : 0}}>{'█'}</span>
+				<span style={{display: 'inline-block', width: 13, height: 28, verticalAlign: 'middle', background: C.text, opacity: cursorOn ? 0.9 : 0}} />
 			</div>
 			<div style={{position: 'absolute', left: STRIP_X + 10, top: STRIP_Y, color: C.dim, fontSize: 15, lineHeight: `${STRIP_H}px`, opacity: hintOpacity}}>
 				? for shortcuts

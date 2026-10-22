@@ -39,7 +39,7 @@ export const Moods: React.FC = () => {
 					</div>
 				) : null}
 			</div>
-			<div style={{position: 'absolute', left: 300, top: 420, width: CWB * 4, fontFamily: MONO, fontSize: 24, color: C.dim, opacity: ramp(f, 30, 50), textAlign: 'center', lineHeight: 1.5}}>
+			<div style={{position: 'absolute', left: 228, top: 420, width: 400, fontFamily: MONO, fontSize: 24, color: C.dim, opacity: ramp(f, 30, 50), textAlign: 'center', lineHeight: 1.5}}>
 				2 cells · 4x2 pixels
 				<br />
 				one terminal row
@@ -53,8 +53,8 @@ export const Moods: React.FC = () => {
 						<div
 							key={md.name}
 							style={{
-								height: 112,
-								marginBottom: 14,
+								height: 100,
+								marginBottom: 12,
 								padding: '0 28px',
 								display: 'flex',
 								flexDirection: 'column',
@@ -76,7 +76,7 @@ export const Moods: React.FC = () => {
 			</div>
 
 			{/* the same walker, live on the strip */}
-			<div style={{position: 'absolute', left: 190, top: 780, opacity: ramp(f, 40, 60)}}>
+			<div style={{position: 'absolute', left: 190, top: 810, opacity: ramp(f, 40, 60)}}>
 				<Strip cw={11.5} state={{palette: p, cols: 140, mood: m, tick, ctx: m === 'panic' ? 86 : 42}} />
 			</div>
 

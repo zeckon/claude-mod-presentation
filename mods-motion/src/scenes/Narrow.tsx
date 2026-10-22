@@ -5,7 +5,7 @@ import {PALETTES} from '../pixelbar/palettes';
 import {Strip, stripLayout, StripState} from '../pixelbar/Strip';
 import {C, INOUT, lerp, MONO, ramp} from '../theme';
 
-const CW = 8.6;
+const CW = 7.8;
 
 export const Narrow: React.FC = () => {
 	const f = useCurrentFrame();

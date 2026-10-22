@@ -20,7 +20,7 @@ const bez = (a: Pt, b: Pt, c: Pt, d: Pt, t: number): Pt => {
 export const Recap: React.FC = () => {
 	const f = useCurrentFrame();
 	const p = PALETTES[0];
-	const diagram = ramp(f, 0, 24) * (1 - 0.85 * ramp(f, 330, 350));
+	const diagram = ramp(f, 0, 24) * (1 - 0.85 * ramp(f, 330, 350)) * (1 - ramp(f, 436, 456));
 	const LCX = 330;
 	const LCY = 470;
 	const LS = 0.5;
@@ -49,7 +49,7 @@ export const Recap: React.FC = () => {
 		<Shell n={10} q="HOW DOES IT ALL FIT?">
 			<div style={{opacity: diagram}}>
 				<Loop f={f} cx={LCX} cy={LCY} s={LS} orbitAt={40} start={4} hooks={[{name: 'turn.start', angle, at: 30}]} labels={0} hookLabels={0} />
-				<svg width={1920} height={1080} style={{position: 'absolute', left: 0, top: 0}}>
+				<svg width={1920} height={1080} style={{position: 'absolute', left: 0, top: 0, zIndex: 2}}>
 					{[w1, w2].map((w, i) => (
 						<path key={i} d={wire(w)} stroke={C.clay} strokeOpacity={0.55 * wireO} strokeWidth={4} fill="none" strokeLinecap="round" />
 					))}
