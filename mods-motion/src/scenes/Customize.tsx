@@ -51,9 +51,9 @@ export const Customize: React.FC = () => {
 				</>
 			) : (
 				<div style={{position: 'absolute', top: 560, left: 200, right: 200, fontFamily: SANS, fontWeight: 500, fontSize: 36, color: C.dim, lineHeight: 1.4, opacity: ramp(f, 40, 70)}}>
-					Project: dir, git, diff, commit, stash
+					Claude and session: mode, model, effort, ctx, cache, tok, 5h, 7d, session, last, agents, tools, edits, compacts
 					<br />
-					Claude and session: mode, model, effort, ctx, cache, tok, 5h, 7d, session, last, agents, tools, edits, compacts, hint
+					Right end: hint, dir, git, diff, commit, stash
 				</div>
 			)}
 			<Cap from={30} to={110}>Every section can be switched <Em>on or off</Em>.</Cap>

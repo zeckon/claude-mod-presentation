@@ -7,16 +7,16 @@ import {C, MONO, ramp, SANS} from '../theme';
 
 const p = PALETTES[0];
 const CELLS = [
-	{ch: '▐', code: '0x2590', fg: p.tiles, bg: p.ground},
+	{ch: '\u2590', code: '0x2590', fg: p.tiles, bg: p.ground},
 	{ch: ' ', code: '0x20', fg: p.labels, bg: p.tiles},
+	{ch: 'M', code: '0x4d', fg: p.labels, bg: p.tiles},
+	{ch: 'O', code: '0x4f', fg: p.labels, bg: p.tiles},
 	{ch: 'D', code: '0x44', fg: p.labels, bg: p.tiles},
-	{ch: 'I', code: '0x49', fg: p.labels, bg: p.tiles},
-	{ch: 'R', code: '0x52', fg: p.labels, bg: p.tiles},
+	{ch: 'E', code: '0x45', fg: p.labels, bg: p.tiles},
 	{ch: ' ', code: '0x20', fg: p.labels, bg: p.tiles},
-	{ch: 'm', code: '0x6d', fg: p.values, bg: p.tiles},
-	{ch: 'o', code: '0x6f', fg: p.values, bg: p.tiles},
-	{ch: 'd', code: '0x64', fg: p.values, bg: p.tiles},
-	{ch: 's', code: '0x73', fg: p.values, bg: p.tiles},
+	{ch: 'D', code: '0x44', fg: p.values, bg: p.tiles},
+	{ch: 'E', code: '0x45', fg: p.values, bg: p.tiles},
+	{ch: 'F', code: '0x46', fg: p.values, bg: p.tiles},
 ];
 const SW = 9.6;
 const SL = (1920 - 140 * SW) / 2;
@@ -74,24 +74,33 @@ export const RasterScene: React.FC = () => {
 			</div>
 
 			{/* the hook */}
-			<div style={{position: 'absolute', left: 160, top: 320, opacity: codeO, translate: `0 ${(1 - codeO) * 20}px`}}>
-				<CodeCard title="register.tsx" width={1080} size={22}>
+			<div style={{position: 'absolute', left: 120, top: 240, opacity: codeO, translate: `0 ${(1 - codeO) * 20}px`}}>
+				<CodeCard title="register.tsx" width={1060} size={21}>
 					{kw('on')}({str("'ui.render'")}, {'{ component: '}
 					{str("'PromptHint'")}
 					{' }, '}
 					{kw('async')} ($, e, next) {'=> {'}
 					{'\n  '}
-					{kw('const')} canvas = paint({'{ snap, pose, columns, hidden, palette }'})
+					{kw('const')} canvas = paint({'{ snap, mode, pose, columns, hidden, palette }'})
 					{'\n  '}
-					{kw('return')} {'<Raster columns={canvas.w} rows={1} cells={canvas.base64()} />'}
+					{kw('return')} {'('}
+					{'\n    '}
+					{'<Box width={1} height={1}>'}
+					{'\n      '}
+					{'<Box position="absolute" left={-pillOffset(mode)}>'}
+					{'\n        '}
+					{'<Raster columns={canvas.w} rows={1} cells={canvas.base64()} />'}
+					{'\n      </Box>'}
+					{'\n    </Box>'}
+					{'\n  )'}
 					{'\n'}
 					{'})'}
 				</CodeCard>
 			</div>
-			<div style={{position: 'absolute', left: 160, top: 640, fontFamily: SANS, fontWeight: 500, fontSize: 31, lineHeight: 1.5, color: C.text}}>
+			<div style={{position: 'absolute', left: 120, top: 700, fontFamily: SANS, fontWeight: 500, fontSize: 30, lineHeight: 1.5, color: C.text}}>
 				<div style={{opacity: ramp(f, 506, 522)}}><span style={{color: C.clay}}>ASCII only:</span> one width-1 character per cell.</div>
-				<div style={{opacity: ramp(f, 524, 540)}}><span style={{color: C.clay}}>One column short:</span> the last column can make a terminal wrap.</div>
-				<div style={{opacity: ramp(f, 542, 558)}}><span style={{color: C.clay}}>Terminal only:</span> the desktop app and IDEs keep their normal hint.</div>
+				<div style={{opacity: ramp(f, 524, 540)}}><span style={{color: C.clay}}>Two columns of margin</span> on each side, so it never writes the last column.</div>
+				<div style={{opacity: ramp(f, 542, 558)}}><span style={{color: C.clay}}>Reaches back:</span> the site holds one cell; the strip is drawn absolute, over the mode indicator.</div>
 			</div>
 
 			<Cap from={10} to={124} size={54}>The strip is one row of terminal <Em>cells</Em>.</Cap>

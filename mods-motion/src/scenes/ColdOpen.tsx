@@ -40,8 +40,8 @@ export const ColdOpen: React.FC = () => {
 				<div style={{fontFamily: PIXEL, fontWeight: 700, fontSize: 170, color: '#9bbc0f', lineHeight: 1, translate: `0 ${(1 - ramp(f, 250, 284)) * 30}px`}}>pixelbar</div>
 				<div style={{fontFamily: SANS, fontWeight: 500, fontSize: 36, color: C.dim, marginTop: 14}}>a pixel-art status strip for Claude Code</div>
 			</div>
-			<Cap from={24} to={150}>Under every Claude Code prompt sits a dim <Em>hint line</Em>.</Cap>
-			<Cap from={164} to={236}>pixelbar swaps it for something alive.</Cap>
+			<Cap from={24} to={150}>Under every prompt: a dim <Em>hint line</Em> and a mode indicator.</Cap>
+			<Cap from={164} to={236}>pixelbar replaces both with something alive.</Cap>
 			<Cap from={290} to={324}>Meet pixelbar.</Cap>
 		</Shell>
 	);

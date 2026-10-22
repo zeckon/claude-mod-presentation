@@ -11,7 +11,6 @@ export const Narrow: React.FC = () => {
 	const f = useCurrentFrame();
 	const base: StripState = {
 		palette: PALETTES[0],
-		mode: true,
 		git: 'main *2 ^2 v1',
 		diff: '+124 -37',
 		cache: '92%',
@@ -23,8 +22,8 @@ export const Narrow: React.FC = () => {
 		tick: Math.floor(f / 8),
 	};
 	const full = stripLayout(base);
-	const cols = Math.round(lerp(full.used + 1, 34, ramp(f, 40, 200, INOUT)));
-	const state: StripState = {...base, cols, ctxBar: Math.min(20, Math.max(6, Math.floor(cols * 0.08)))};
+	const cols = Math.round(lerp(full.natural, 34, ramp(f, 40, 200, INOUT)));
+	const state: StripState = {...base, cols};
 	const kept = stripLayout(state, cols).ids;
 	const dropped = full.ids.filter((id) => !kept.includes(id) && id !== 'divider');
 	const w = cols * CW;

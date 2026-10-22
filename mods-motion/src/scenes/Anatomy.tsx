@@ -7,23 +7,24 @@ import {C, keys, MONO, ramp, SANS} from '../theme';
 
 const CW = 20;
 const TOP = 300;
-const GAP = 82;
-const START = 48;
+const GAP = 90;
+const START = 56;
 
 type Stop = {id: string; title: string; lines: string[]; sample?: string};
 const STOPS: Stop[] = [
 	{id: 'walker', title: 'THE WALKER', lines: ['A creature two cells wide, built from', 'quarter-block characters. Its mood shows what Claude is doing.']},
-	{id: 'dir', title: 'DIR  /  working folder', lines: ["The last folder of the session's working directory.", 'Anything over 24 characters is cut and ends in ~.'], sample: 'claude-mod-presentation  ->  mods-motion'},
-	{id: 'git', title: 'GIT  /  branch and working tree', lines: ['Only inside a git repository. Refreshes every 15 s.', 'A detached HEAD shows the short hash: @1a2b3c4.'], sample: 'main   *2 files changed   ^2 ahead   v1 behind'},
-	{id: 'diff', title: 'DIFF  /  lines changed', lines: ['Lines added and removed against the last commit.', 'Hidden when the tree is clean.'], sample: 'git diff --shortstat HEAD  ->  +124 -37'},
-	{id: 'divider', title: 'THE DIVIDER', lines: ['Splits "your project" from "Claude and the session".', 'After a turn of a minute or more, it flashes.']},
-	{id: 'mode', title: 'MODE  /  permission mode', lines: ['Shown in the default mode. In any other mode Claude Code', 'draws its own indicator, so this tile steps aside.']},
+	{id: 'mode', title: 'MODE  /  permission mode', lines: ['Follows shift+tab: DEFAULT, ACCEPT EDITS, PLAN, AUTO...', "It paints over Claude Code's own mode indicator."], sample: 'inferred: settings, hint changes, each prompt'},
 	{id: 'model', title: 'MODEL  /  the main model', lines: ['The model /model reports, shortened. A 1M-context', 'variant gets " 1M" added.'], sample: 'claude-opus-5-5  ->  OPUS 5.5'},
-	{id: 'effort', title: 'EFFORT  /  how hard it thinks', lines: ['Five pips, LOW to MAX. The exact value is read', 'from each request Claude sends.']},
-	{id: 'ctx', title: 'CTX  /  context window', lines: ['Gauge, percent, and tokens used / window size.', 'At 80% it turns red, and the walker panics.']},
+	{id: 'effort', title: 'EFFORT  /  how hard it thinks', lines: ['Five rising bars, lit up to the current level:', 'LOW, MEDIUM, HIGH, XHIGH, MAX. AUTO when not known yet.']},
+	{id: 'ctx', title: 'CTX  /  context window', lines: ['Six-cell gauge, percent, tokens used / window size.', 'At 80% it turns red, and the walker panics.']},
 	{id: '5h', title: '5H  /  usage limit', lines: ['How much of your five-hour rate-limit window is used.', 'Subscriptions only. Red at 90%.']},
 	{id: 'session', title: 'SESSION  /  totals', lines: ['Session clock, prompts sent, tokens used, cost so far.', 'The cost is the same figure /cost reports.'], sample: '1h12m   7 prompts   $1.23'},
+	{id: 'dir', title: 'DIR  /  working folder', lines: ["Your project goes at the right end of the row.", "The last folder of the working directory, cut at 24 characters."], sample: 'claude-mod-presentation  ->  mods-motion'},
+	{id: 'git', title: 'GIT  /  branch and working tree', lines: ['Only inside a git repository. Refreshes every 15 s.', 'A detached HEAD shows the short hash: @1a2b3c4.'], sample: 'main   *2 files changed   ^2 ahead   v1 behind'},
+	{id: 'diff', title: 'DIFF  /  lines changed', lines: ['Lines added and removed against the last commit.', 'Hidden when the tree is clean.'], sample: 'git diff --shortstat HEAD  ->  +124 -37'},
 ];
+
+const MODES = ['DEFAULT', 'ACCEPT EDITS', 'PLAN', 'AUTO'];
 
 export const Anatomy: React.FC = () => {
 	const f = useCurrentFrame();
@@ -33,25 +34,25 @@ export const Anatomy: React.FC = () => {
 
 	const base: StripState = {
 		palette: p,
-		mode: true,
 		git: 'main *2 ^2 v1',
 		diff: '+124 -37',
 		h5: 37,
-		effort: 2,
 	};
-	const ctxStop = STOPS.findIndex((s) => s.id === 'ctx');
-	const effStop = STOPS.findIndex((s) => s.id === 'effort');
+	const at = (id: string) => STOPS.findIndex((s) => s.id === id);
+	const ctxStop = at('ctx');
+	const effStop = at('effort');
+	const modeStop = at('mode');
 	const ctx = idx === ctxStop ? 42 + 44 * ramp(f, t(ctxStop) + 20, t(ctxStop) + 56) : 42;
-	const effort = idx === effStop ? Math.min(4, Math.floor((f - t(effStop)) / 12) % 5) : 2;
+	const effort = idx === effStop ? Math.min(4, Math.floor((f - t(effStop)) / 14) % 5) : 2;
+	const modeLabel = idx === modeStop ? MODES[Math.min(3, Math.floor((f - t(modeStop)) / 18))] : 'DEFAULT';
 	const panic = ctx >= 80;
-	const flashing = idx === STOPS.findIndex((s) => s.id === 'divider') && Math.floor(f / 10) % 2 === 0;
-	const state: StripState = {...base, ctx, effort, flash: flashing, mood: panic ? 'panic' : 'walk', tick: Math.floor(f / (panic ? 3 : 8)), hidden: undefined};
+	const state: StripState = {...base, ctx, effort, modeLabel, mood: panic ? 'panic' : 'walk', tick: Math.floor(f / (panic ? 3 : 8)), hidden: undefined};
 
-	const {placed, used} = stripLayout(state);
-	const width = (used + 1) * CW;
+	const layout = stripLayout(state);
+	const width = layout.cols * CW;
 	const place = (id: string) => {
 		if (id === 'walker') return {x: 1, w: 3};
-		const q = placed.find((pl) => pl.item.id === id)!;
+		const q = layout.placed.find((pl) => pl.item.id === id)!;
 		return {x: q.x, w: q.item.w};
 	};
 
@@ -101,7 +102,7 @@ export const Anatomy: React.FC = () => {
 					</React.Fragment>
 				);
 			})}
-			<Cap from={8} to={46} size={52}>One row. Let's read it <Em>left to right</Em>.</Cap>
+			<Cap from={8} to={52} size={52}>One row: <Em>Claude</Em> on the left, <Em>your project</Em> on the right.</Cap>
 		</Shell>
 	);
 };

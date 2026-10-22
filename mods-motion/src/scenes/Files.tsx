@@ -8,7 +8,7 @@ const GAP = 55;
 const FILES = [
 	{path: '.claude-plugin/plugin.json', what: 'Name, version, author and where the types live.'},
 	{path: 'hooks/hooks.json', what: 'Tells Claude Code which module to load as hooks.'},
-	{path: 'hooks/register.tsx', what: 'The whole mod, about 800 lines: reads session data, animates the walker, paints the strip, serves two slash commands.'},
+	{path: 'hooks/register.tsx', what: 'The whole mod, about 900 lines: reads session data, animates the walker, paints the strip, serves two slash commands.'},
 	{path: 'types/index.d.ts', what: 'Types of the values the mod keeps in session state: Snapshot, Git, Tokens, Counters.'},
 ];
 
@@ -42,7 +42,7 @@ export const Files: React.FC = () => {
 									{'{ '}
 									{str('"name"')}: {str('"pixelbar"')},
 									{'\n  '}
-									{str('"version"')}: {str('"0.1.0"')},
+									{str('"version"')}: {str('"0.2.0"')},
 									{'\n  '}
 									{str('"types"')}: {str('"./types/index.d.ts"')} {'}'}
 								</CodeCard>

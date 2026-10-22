@@ -61,7 +61,7 @@ export const Terminal: React.FC<Props> = ({body, hintOpacity, cursorOn, children
 				<span style={{display: 'inline-block', width: 13, height: 28, verticalAlign: 'middle', background: C.text, opacity: cursorOn ? 0.9 : 0}} />
 			</div>
 			<div style={{position: 'absolute', left: STRIP_X + 10, top: STRIP_Y, color: C.dim, fontSize: 15, lineHeight: `${STRIP_H}px`, opacity: hintOpacity}}>
-				? for shortcuts
+				manual mode on  ·  ? for shortcuts
 			</div>
 		</div>
 		<div style={{position: 'absolute', left: STRIP_X, top: STRIP_Y, clipPath: `inset(0 ${(1 - wipe) * 100}% 0 0)`}}>{children}</div>
