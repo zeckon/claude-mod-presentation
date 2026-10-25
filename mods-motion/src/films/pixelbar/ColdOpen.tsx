@@ -1,10 +1,10 @@
 import React from 'react';
 import {useCurrentFrame} from 'remotion';
-import {Cap, Em, Shell} from '../kit';
-import {PALETTES} from '../pixelbar/palettes';
-import {Strip} from '../pixelbar/Strip';
-import {camT, STRIP_H, STRIP_W, STRIP_X, STRIP_Y, TERM_H, TERM_W, Terminal} from '../Terminal';
-import {C, INOUT, lerp, PIXEL, ramp, SANS} from '../theme';
+import {Cap, Em, Shell} from '../../kit';
+import {PALETTES} from '../../pixelbar/palettes';
+import {Strip} from '../../pixelbar/Strip';
+import {camT, STRIP_H, STRIP_W, STRIP_X, STRIP_Y, TERM_H, TERM_W, Terminal} from '../../Terminal';
+import {C, INOUT, lerp, PIXEL, ramp, SANS} from '../../theme';
 
 export const ColdOpen: React.FC = () => {
 	const f = useCurrentFrame();

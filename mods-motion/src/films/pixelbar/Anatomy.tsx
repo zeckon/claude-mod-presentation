@@ -1,9 +1,9 @@
 import React from 'react';
 import {useCurrentFrame} from 'remotion';
-import {Cap, Em, Shell} from '../kit';
-import {PALETTES} from '../pixelbar/palettes';
-import {Strip, stripLayout, StripState} from '../pixelbar/Strip';
-import {C, keys, MONO, ramp, SANS} from '../theme';
+import {Cap, Em, Shell} from '../../kit';
+import {PALETTES} from '../../pixelbar/palettes';
+import {Strip, stripLayout, StripState} from '../../pixelbar/Strip';
+import {C, keys, MONO, ramp, SANS} from '../../theme';
 
 const CW = 20;
 const TOP = 300;

@@ -1,30 +1,44 @@
 import {Player, PlayerRef} from '@remotion/player';
 import React from 'react';
 import {createRoot} from 'react-dom/client';
-import {Film, TOTAL} from './Film';
+import {FilmDef, filmLength, FilmView} from './Film';
+import {FILMS} from './films';
 
-// The page script drives the player through window.pixelbarPlayer.
+type Chapter = {title: string; start: number; part?: string};
+
+// The page script drives the player and builds its chapter list from these.
 declare global {
 	interface Window {
-		pixelbarPlayer?: PlayerRef | null;
+		pluginPlayer?: PlayerRef | null;
+		pluginChapters?: Chapter[];
 	}
 }
 
-const App: React.FC = () => {
+const chapters = (film: FilmDef): Chapter[] => {
+	let start = 0;
+	return film.scenes.map((s) => {
+		const c = {title: s.title, start, part: s.part};
+		start += s.d;
+		return c;
+	});
+};
+
+const App: React.FC<{film: FilmDef}> = ({film}) => {
 	const ref = React.useRef<PlayerRef>(null);
 	React.useEffect(() => {
-		window.pixelbarPlayer = ref.current;
+		window.pluginPlayer = ref.current;
 		const p = ref.current;
 		if (!p) return;
-		const on = () => window.dispatchEvent(new CustomEvent('pixelbar-frame', {detail: p.getCurrentFrame()}));
+		const on = () => window.dispatchEvent(new CustomEvent('plugin-frame', {detail: p.getCurrentFrame()}));
 		p.addEventListener('frameupdate', on);
 		return () => p.removeEventListener('frameupdate', on);
 	}, []);
 	return (
 		<Player
 			ref={ref}
-			component={Film}
-			durationInFrames={TOTAL}
+			component={FilmView}
+			inputProps={{film}}
+			durationInFrames={filmLength(film)}
 			fps={30}
 			compositionWidth={1920}
 			compositionHeight={1080}
@@ -38,4 +52,10 @@ const App: React.FC = () => {
 	);
 };
 
-createRoot(document.getElementById('player')!).render(<App />);
+const el = document.getElementById('player');
+const film = el ? FILMS[el.dataset.film ?? ''] : undefined;
+if (el && film) {
+	window.pluginChapters = chapters(film);
+	window.dispatchEvent(new Event('plugin-chapters'));
+	createRoot(el).render(<App film={film} />);
+}

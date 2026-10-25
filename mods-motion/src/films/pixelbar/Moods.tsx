@@ -1,9 +1,9 @@
 import React from 'react';
 import {useCurrentFrame} from 'remotion';
-import {Cap, Em, Shell} from '../kit';
-import {PALETTES} from '../pixelbar/palettes';
-import {colors, Mood, Strip, WalkerPixels} from '../pixelbar/Strip';
-import {C, MONO, ramp, SANS} from '../theme';
+import {Cap, Em, Shell} from '../../kit';
+import {PALETTES} from '../../pixelbar/palettes';
+import {colors, Mood, Strip, WalkerPixels} from '../../pixelbar/Strip';
+import {C, MONO, ramp, SANS} from '../../theme';
 
 const T0 = 60;
 const BLOCK = 120;

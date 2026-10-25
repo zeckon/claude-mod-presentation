@@ -1,8 +1,8 @@
 import React from 'react';
 import {useCurrentFrame} from 'remotion';
-import {Cap, CodeCard, dimc, Em, kw, Shell, str} from '../kit';
-import {Hook, Loop} from '../Loop';
-import {C, MONO, ramp, SANS} from '../theme';
+import {Cap, CodeCard, dimc, Em, kw, Shell, str} from '../../kit';
+import {Hook, Loop} from '../../Loop';
+import {C, MONO, ramp, SANS} from '../../theme';
 
 const HOOKS: Hook[] = [
 	{name: 'prompt.submit', angle: -60, at: 150},

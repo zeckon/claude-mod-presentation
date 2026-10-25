@@ -1,7 +1,7 @@
 import React from 'react';
 import {useCurrentFrame} from 'remotion';
-import {Cap, CodeCard, dimc, Em, kw, Shell, str} from '../kit';
-import {C, MONO, ramp, SANS} from '../theme';
+import {Cap, CodeCard, dimc, Em, kw, Shell, str} from '../../kit';
+import {C, MONO, ramp, SANS} from '../../theme';
 
 const T0 = 50;
 const GAP = 55;

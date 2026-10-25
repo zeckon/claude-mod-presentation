@@ -1,12 +1,12 @@
 import React from 'react';
 import {useCurrentFrame} from 'remotion';
-import {Cap, Em, Shell} from '../kit';
-import {Loop, hit, pointOn} from '../Loop';
-import {hex, PALETTES} from '../pixelbar/palettes';
-import {Strip} from '../pixelbar/Strip';
-import {STRIP_H, STRIP_W, STRIP_X, STRIP_Y, TERM_H, TERM_W, Terminal} from '../Terminal';
-import {C, MONO, PIXEL, ramp, SANS} from '../theme';
-import {typed} from '../kit';
+import {Cap, Em, Shell} from '../../kit';
+import {Loop, hit, pointOn} from '../../Loop';
+import {hex, PALETTES} from '../../pixelbar/palettes';
+import {Strip} from '../../pixelbar/Strip';
+import {STRIP_H, STRIP_W, STRIP_X, STRIP_Y, TERM_H, TERM_W, Terminal} from '../../Terminal';
+import {C, MONO, PIXEL, ramp, SANS} from '../../theme';
+import {typed} from '../../kit';
 
 type Pt = {x: number; y: number};
 const bez = (a: Pt, b: Pt, c: Pt, d: Pt, t: number): Pt => {
