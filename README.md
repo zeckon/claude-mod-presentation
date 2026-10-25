@@ -1,38 +1,36 @@
 # claude-mod-presentation
 
-A 3-minute animated explainer about **pixelbar**, a Claude Code mod that draws a pixel-art status strip under the prompt, and about how mods work. Built with [Remotion](https://www.remotion.dev) (React): 1920x1080, 30 fps, 5,400 frames.
+Animated explainers for every plugin in [zeckon/claude-plugins](https://github.com/zeckon/claude-plugins), built with [Remotion](https://www.remotion.dev) (React, 1920x1080, 30 fps). They are published at **https://zeckon.github.io/claude-plugins/**: an index page plus one player page per plugin.
 
-pixelbar itself lives in [zeckon/claude-plugins](https://github.com/zeckon/claude-plugins).
+| Film | Length | What it covers |
+|---|---|---|
+| `pixelbar` | 3:00 | The status strip tile by tile, the walker's moods, sections and palettes, then how a mod works: hooks, events, state, the `Raster` cell grid |
+| `history` | 1:30 | Each turn committed to a shadow repo, opting in, the two shell hooks, what a commit holds, going back and restoring |
+| `devcontainers` | 1:31 | Authoring a `devcontainer.json`, running it, sandbox mode via a PreToolUse hook, auto-rebuild via PostToolUse, opt-in state |
+| `explain` | 1:31 | What `/explain:diff` reads, the lesson it writes, the quiz, and why it is a skill rather than a hook |
 
-## What is in the video
-
-| Time | Scene |
-|---|---|
-| 0:00 | What is pixelbar? |
-| 0:11 | What is on the strip? (a tour of every tile) |
-| 0:44 | The walker and its five moods |
-| 1:06 | Sections and the 12 palettes |
-| 1:22 | Narrow terminals |
-| 1:30 | How can a plugin draw there? (the loop, hooks, `on(...)`) |
-| 1:50 | What a mod is made of (its four files) |
-| 2:00 | Events to state |
-| 2:18 | How the strip is drawn (cells, `Raster`) |
-| 2:38 | Recap and install |
+The old page at https://zeckon.github.io/claude-mod-presentation/ now forwards to the new site (`redirect/`, deployed by `.github/workflows/pages.yml`).
 
 ## Layout
 
 ```
-mods-motion/            the Remotion project
-  src/Film.tsx          scene order and durations
-  src/scenes/           one file per scene
-  src/pixelbar/         the strip: palettes, layout and drop-out logic, walker
-  src/Loop.tsx          the Claude Code loop diagram (ring, hooks, dot)
-  src/Terminal.tsx      the terminal mock-up the strip sits in
-  src/kit.tsx           captions, chips, code cards
-  src/theme.ts          fonts, colors, timing helpers
+mods-motion/                  the Remotion project
+  src/films/<plugin>/         one folder per film: a file per scene, index.tsx lists them
+  src/films/index.ts          all films
+  src/Film.tsx                plays a film's scenes back to back
+  src/Root.tsx                one composition per film (id = plugin name)
+  src/kit.tsx                 shared scene frame, captions, chips, code cards
+  src/theme.ts                fonts, colors, timing helpers
+  src/Loop.tsx                the Claude Code loop diagram (ring, hooks, dot)
+  src/Terminal.tsx            terminal mock-up
+  src/pixelbar/               pixelbar's strip: palettes, layout, walker
+  src/web.tsx                 the web player (Remotion <Player>) for any film
+  web/                        site templates: home.html, plugin.html, site.css, plugins.json
+  scripts/                    render-media.sh, build-site.mjs, deploy-plugins-site.sh
+redirect/                     the forwarding page for this repo's own GitHub Pages
 ```
 
-The palettes and the strip layout are copied from the pixelbar plugin (`hooks/register.tsx`), so the video shows the real behavior.
+Facts on screen come from each plugin's source in claude-plugins (README, hooks, scripts, skills). pixelbar's palettes and strip layout are copied from its `hooks/register.tsx`.
 
 ## Run it
 
@@ -41,46 +39,34 @@ Needs Node 20.19+, 22.13+ or 24+.
 ```bash
 cd mods-motion
 npm i
-npm run dev          # Remotion Studio at http://localhost:3000
+npm run dev          # Remotion Studio at http://localhost:3000, one composition per plugin
 ```
-
-Studio hot-reloads; scrub the timeline to check any scene.
-
-## Render the MP4
-
-```bash
-cd mods-motion
-npx remotion render ClaudeMods out/pixelbar.mp4
-```
-
-The first render or still downloads a headless Chrome from `remotion.media`. `out/` is git-ignored.
 
 Check a single frame:
 
 ```bash
-npx remotion still ClaudeMods out/frame.png --frame=250
+npx remotion still history out/frame.png --frame=250
 ```
 
-## The web page
+The first render or still downloads a headless Chrome from `remotion.media`. `out/` and `site/` are git-ignored.
 
-`mods-motion/web/index.html` plays the film with Remotion's `<Player>`, with chapter links and the install commands.
+## Publish the site
 
 ```bash
 cd mods-motion
-npm run build:web    # bundles src/web.tsx into web/player.js (git-ignored)
+npm run render:media            # posters always; MP4s only if missing (add -- --force to re-render)
+npm run deploy:plugins          # builds site/ and pushes it to claude-plugins' gh-pages branch
 ```
 
-`npm run build:site` also wraps the page into a full document in `mods-motion/site/` (git-ignored), ready for any static host.
+`deploy:plugins` needs push access to zeckon/claude-plugins. GitHub Pages there serves the `gh-pages` branch root.
 
-### GitHub Pages
+Per-plugin page text (tagline, notes, poster frame, length) lives in `web/plugins.json`.
 
-`.github/workflows/pages.yml` builds and deploys `site/` on every push to `main`. Turn it on once in the repo: **Settings > Pages > Build and deployment > Source: GitHub Actions**. The page is then at https://zeckon.github.io/claude-mod-presentation/.
+## Change a film
 
-## Change it
-
-- **Timing:** scene lengths are in `SCENES` in `mods-motion/src/Film.tsx`; the total is derived from them.
+- **Scenes and timing:** `src/films/<plugin>/index.tsx`; the total length is derived from the scene list.
 - **Text:** captions are `<Cap from to>` blocks at the bottom of each scene file (frames are local to the scene).
-- **Palette or strip contents:** `src/pixelbar/palettes.ts` and the `state` passed to `<Strip>`.
+- **New plugin:** add `src/films/<name>/`, register it in `src/films/index.ts` and `src/Root.tsx`, and add an entry to `web/plugins.json`.
 
 ## Sandbox notes
 

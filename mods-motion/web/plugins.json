@@ -22,7 +22,7 @@
 	{
 		"id": "devcontainers",
 		"accent": "clay",
-		"length": "1:30",
+		"length": "1:31",
 		"tagline": "Author, run and sandbox dev containers from Claude Code.",
 		"about": "Writing a devcontainer.json from slash commands, running the container, sandbox mode (Claude's Bash calls rewritten to run inside the container by a PreToolUse hook), auto-rebuild on config edits, and what stays off until you turn it on.",
 		"note": "Needs Docker for up, build and exec, and Node.js for the devcontainers CLI. Hooks stay off until you enable them.",
@@ -32,7 +32,7 @@
 	{
 		"id": "explain",
 		"accent": "clay",
-		"length": "1:30",
+		"length": "1:31",
 		"tagline": "Turn a code change into an interactive lesson.",
 		"about": "What you can point /explain:diff at, what it reads before writing a word, the sections of the lesson it produces (diagrams, walkthrough, trade-offs, a scored quiz), and why it is a skill rather than a hook.",
 		"note": "Reads the repository and runs read-only git commands. Writes one HTML file under /tmp.",
