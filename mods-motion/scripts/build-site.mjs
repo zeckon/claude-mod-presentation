@@ -1,7 +1,7 @@
 // Builds the claude-plugins site into site/: an index page and one player page
 // per plugin, from the fragments in web/ (head tags, then <main>), plus the
 // player bundle, each film's poster and MP4 (rendered into out/ beforehand).
-import {copyFileSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync} from 'node:fs';
+import {copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync} from 'node:fs';
 
 const css = readFileSync('web/site.css', 'utf8');
 const plugins = JSON.parse(readFileSync('web/plugins.json', 'utf8'));
@@ -28,8 +28,9 @@ ${src.slice(at)}
 `;
 };
 
-rmSync('site', {recursive: true, force: true});
+// Empty site/ rather than replace it, so a local server running in it keeps working.
 mkdirSync('site', {recursive: true});
+for (const e of readdirSync('site')) rmSync(`site/${e}`, {recursive: true, force: true});
 writeFileSync('site/.nojekyll', '');
 copyFileSync('web/player.js', 'site/player.js');
 

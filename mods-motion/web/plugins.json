@@ -6,8 +6,7 @@
 		"tagline": "A pixel-art status strip for Claude Code, and a three-minute look at how a mod draws it.",
 		"about": "What each tile on the strip means, the walker's five moods, sections and 12 palettes, then how a mod works: hooks, events, state, and the cell grid that becomes the strip.",
 		"note": "Needs a Claude Code build with the mods API (tested on 2.1.308). The strip appears under the prompt right away.",
-		"version": "0.2.0",
-		"poster": 300
+		"version": "0.2.0"
 	},
 	{
 		"id": "history",
@@ -16,8 +15,7 @@
 		"tagline": "Every Claude turn committed to a shadow git repo you can browse and restore from.",
 		"about": "How each turn becomes a commit in a shadow repo next to your project's own .git, how to opt a project in, the two shell hooks that do the work, what a commit holds, and how to look back and restore a file.",
 		"note": "Opt in per project with /history:enable. Needs git and python3.",
-		"version": "0.2.0",
-		"poster": 300
+		"version": "0.2.0"
 	},
 	{
 		"id": "devcontainers",
@@ -26,8 +24,7 @@
 		"tagline": "Author, run and sandbox dev containers from Claude Code.",
 		"about": "Writing a devcontainer.json from slash commands, running the container, sandbox mode (Claude's Bash calls rewritten to run inside the container by a PreToolUse hook), auto-rebuild on config edits, and what stays off until you turn it on.",
 		"note": "Needs Docker for up, build and exec, and Node.js for the devcontainers CLI. Hooks stay off until you enable them.",
-		"version": "0.1.0",
-		"poster": 220
+		"version": "0.1.0"
 	},
 	{
 		"id": "explain",
@@ -36,7 +33,6 @@
 		"tagline": "Turn a code change into an interactive lesson.",
 		"about": "What you can point /explain:diff at, what it reads before writing a word, the sections of the lesson it produces (diagrams, walkthrough, trade-offs, a scored quiz), and why it is a skill rather than a hook.",
 		"note": "Reads the repository and runs read-only git commands. Writes one HTML file under /tmp.",
-		"version": "0.1.0",
-		"poster": 250
+		"version": "0.1.0"
 	}
 ]
