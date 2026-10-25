@@ -14,10 +14,10 @@
 		"accent": "clay",
 		"length": "1:30",
 		"tagline": "Every Claude turn committed to a shadow git repo you can browse and restore from.",
-		"about": "",
+		"about": "How each turn becomes a commit in a shadow repo next to your project's own .git, how to opt a project in, the two shell hooks that do the work, what a commit holds, and how to look back and restore a file.",
 		"note": "Opt in per project with /history:enable. Needs git and python3.",
 		"version": "0.2.0",
-		"poster": 150
+		"poster": 300
 	},
 	{
 		"id": "devcontainers",

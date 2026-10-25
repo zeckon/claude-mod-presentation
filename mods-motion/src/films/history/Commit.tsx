@@ -16,7 +16,7 @@ const LINES: Line[] = [
 	{t: 'Tool calls: Read x3, Edit x2', part: 2},
 	{t: '', part: -1},
 	{t: 'Session: 4f1c09d2-8b7e-4a51-9c3d-...', part: 3},
-	{t: 'Model: claude-sonnet-4-5', part: 3},
+	{t: 'Model: claude-opus-5-5', part: 3},
 	{t: 'Tokens-In: 12453', part: 3},
 	{t: 'Tokens-Out: 678', part: 3},
 	{t: 'Cache-Read: 9800', part: 3},
