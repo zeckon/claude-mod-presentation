@@ -1,0 +1,36 @@
+<title>zeckon claude-plugins</title>
+<meta name="description" content="Claude Code plugins by zeckon, each with a short animated explainer.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;700&family=Silkscreen:wght@400;700&display=swap">
+<style>
+{{css}}
+</style>
+
+<main>
+	<header class="hero">
+		<div class="mark clay">claude-plugins</div>
+		<p class="sub">Claude Code plugins by zeckon. Each one comes with a short animated explainer.</p>
+		<div class="cmd"><code id="c1">/plugin marketplace add zeckon/claude-plugins</code><button type="button" data-copy="c1">Copy</button></div>
+	</header>
+
+	<section class="grid" aria-label="Plugins">
+{{cards}}
+	</section>
+
+	<p class="note">Videos are built with Remotion in <a href="https://github.com/zeckon/claude-mod-presentation">claude-mod-presentation</a>. Plugin source: <a href="https://github.com/zeckon/claude-plugins">zeckon/claude-plugins</a>.</p>
+</main>
+
+<script>
+document.querySelectorAll('[data-copy]').forEach(function (btn) {
+	btn.addEventListener('click', function () {
+		var el = document.getElementById(btn.getAttribute('data-copy'));
+		var done = function () { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy'; }, 1400); };
+		var select = function () {
+			var r = document.createRange(); r.selectNodeContents(el);
+			var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+		};
+		if (navigator.clipboard && navigator.clipboard.writeText) {
+			navigator.clipboard.writeText(el.textContent).then(done, select);
+		} else select();
+	});
+});
+</script>

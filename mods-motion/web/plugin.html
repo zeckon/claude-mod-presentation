@@ -1,0 +1,91 @@
+<title>{{id}} explainer</title>
+<meta name="description" content="{{tagline}}">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;700&family=Silkscreen:wght@400;700&display=swap">
+<style>
+{{css}}
+</style>
+
+<main>
+	<header>
+		<a class="back" href="../">zeckon / claude-plugins</a>
+		<div class="mark {{accent}}">{{id}}</div>
+		<p class="sub">{{tagline}}</p>
+	</header>
+
+	<section class="stage" aria-label="Video">
+		<div class="screen"><div id="player" data-film="{{id}}"></div></div>
+		<nav aria-label="Chapters">
+			<ul class="chapters" id="chapters"></ul>
+		</nav>
+	</section>
+
+	<section class="cols">
+		<div>
+			<h2>Install</h2>
+			<div class="cmd"><code id="c1">/plugin marketplace add zeckon/claude-plugins</code><button type="button" data-copy="c1">Copy</button></div>
+			<div class="cmd"><code id="c2">/plugin install {{id}}@zeckon-claude-plugins</code><button type="button" data-copy="c2">Copy</button></div>
+			<p class="note">{{note}}</p>
+		</div>
+		<div>
+			<h2>In the video</h2>
+			<p>{{about}}</p>
+			<p class="note">Covers {{id}} {{version}}. <a href="https://github.com/zeckon/claude-plugins/tree/main/plugins/{{id}}">Plugin source</a> · <a href="{{id}}.mp4">Download the MP4</a> · Press space to play or pause.</p>
+		</div>
+	</section>
+</main>
+
+<script src="../player.js"></script>
+<script>
+(function () {
+	var FPS = 30;
+	var scenes = window.pluginChapters || [];
+	var list = document.getElementById('chapters');
+	var buttons = [];
+	function stamp(frame) {
+		var s = Math.round(frame / FPS);
+		return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
+	}
+	scenes.forEach(function (sc) {
+		if (sc.part) {
+			var h = document.createElement('li');
+			h.className = 'part';
+			h.textContent = sc.part;
+			list.appendChild(h);
+		}
+		var li = document.createElement('li');
+		var b = document.createElement('button');
+		b.type = 'button';
+		b.innerHTML = '<time></time><span></span>';
+		b.firstChild.textContent = stamp(sc.start);
+		b.lastChild.textContent = sc.title;
+		b.addEventListener('click', function () {
+			var p = window.pluginPlayer;
+			if (p) { p.seekTo(sc.start); p.play(); }
+		});
+		li.appendChild(b);
+		list.appendChild(li);
+		buttons.push(b);
+	});
+	function mark(frame) {
+		var cur = 0;
+		scenes.forEach(function (sc, i) { if (frame >= sc.start) cur = i; });
+		buttons.forEach(function (b, i) { if (i === cur) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current'); });
+	}
+	mark(0);
+	window.addEventListener('plugin-frame', function (e) { mark(e.detail); });
+
+	document.querySelectorAll('[data-copy]').forEach(function (btn) {
+		btn.addEventListener('click', function () {
+			var el = document.getElementById(btn.getAttribute('data-copy'));
+			var done = function () { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy'; }, 1400); };
+			var select = function () {
+				var r = document.createRange(); r.selectNodeContents(el);
+				var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+			};
+			if (navigator.clipboard && navigator.clipboard.writeText) {
+				navigator.clipboard.writeText(el.textContent).then(done, select);
+			} else select();
+		});
+	});
+})();
+</script>

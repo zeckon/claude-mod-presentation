@@ -1,8 +1,11 @@
 name: Deploy page
 
+# This repo's page now only forwards to https://zeckon.github.io/claude-plugins/,
+# which is built from mods-motion/ by scripts/deploy-plugins-site.sh.
 on:
   push:
     branches: [main]
+    paths: [redirect/**, .github/workflows/pages.yml]
   workflow_dispatch:
 
 permissions:
@@ -20,21 +23,11 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    defaults:
-      run:
-        working-directory: mods-motion
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-          cache-dependency-path: mods-motion/package-lock.json
-      - run: npm ci
-      - run: npm run build:site
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: mods-motion/site
+          path: redirect
       - id: deployment
         uses: actions/deploy-pages@v4

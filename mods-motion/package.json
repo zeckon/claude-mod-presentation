@@ -31,7 +31,9 @@
     "upgrade": "remotion upgrade",
     "lint": "eslint src && tsc",
     "build:web": "esbuild src/web.tsx --bundle --minify --format=iife --outfile=web/player.js --define:process.env.NODE_ENV='\"production\"'",
-    "build:site": "npm run build:web && node scripts/build-site.mjs"
+    "build:site": "npm run build:web && node scripts/build-site.mjs",
+    "render:media": "bash scripts/render-media.sh",
+    "deploy:plugins": "bash scripts/deploy-plugins-site.sh"
   },
   "allowScripts": {
     "esbuild": false
