@@ -49,7 +49,6 @@ const cards = plugins
 	.map(
 		(p) => `		<a class="card" href="${p.id}/">
 			<img src="${p.id}/poster.jpg" alt="${esc(p.id)}: ${esc(p.tagline)}" loading="lazy" width="1080" height="1080">
-			<div class="name">${esc(p.id)} <span>${esc(p.length)} video</span></div>
 		</a>`,
 	)
 	.join('\n');
