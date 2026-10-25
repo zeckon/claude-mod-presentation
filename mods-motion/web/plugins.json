@@ -24,10 +24,10 @@
 		"accent": "clay",
 		"length": "1:30",
 		"tagline": "Author, run and sandbox dev containers from Claude Code.",
-		"about": "",
+		"about": "Writing a devcontainer.json from slash commands, running the container, sandbox mode (Claude's Bash calls rewritten to run inside the container by a PreToolUse hook), auto-rebuild on config edits, and what stays off until you turn it on.",
 		"note": "Needs Docker for up, build and exec, and Node.js for the devcontainers CLI. Hooks stay off until you enable them.",
 		"version": "0.1.0",
-		"poster": 150
+		"poster": 220
 	},
 	{
 		"id": "explain",
