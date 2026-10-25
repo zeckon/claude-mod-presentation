@@ -48,9 +48,8 @@ for (const p of plugins) {
 const cards = plugins
 	.map(
 		(p) => `		<a class="card" href="${p.id}/">
-			<img src="${p.id}/poster.jpg" alt="Still from the ${esc(p.id)} explainer" loading="lazy" width="1920" height="1080">
+			<img src="${p.id}/poster.jpg" alt="${esc(p.id)}: ${esc(p.tagline)}" loading="lazy" width="1080" height="1080">
 			<div class="name">${esc(p.id)} <span>${esc(p.length)} video</span></div>
-			<p>${esc(p.tagline)}</p>
 		</a>`,
 	)
 	.join('\n');
