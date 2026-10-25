@@ -7,12 +7,15 @@ import {hex, PALETTES} from './pixelbar/palettes';
 import {Strip, WalkerPixels} from './pixelbar/Strip';
 import {C, MONO, PIXEL, SANS} from './theme';
 
+/** One name size for every poster, set by the longest name (devcontainers) so the cards match. */
+const NAME_SIZE = 80;
+
 /** A square card image for the site index: the plugin's name, one line, one picture filling the rest. */
 const Poster: React.FC<{name: string; accent: string; line: string; children: React.ReactNode}> = ({name, accent, line, children}) => (
 	<AbsoluteFill style={{background: C.bg}}>
 		<AbsoluteFill style={{backgroundImage: 'radial-gradient(#ffffff0f 2px, transparent 2px)', backgroundSize: '48px 48px'}} />
 		<div style={{position: 'absolute', left: 90, top: 90, right: 90}}>
-			<div style={{fontFamily: PIXEL, fontWeight: 700, fontSize: Math.min(150, 900 / (name.length * 0.86)), lineHeight: 1, color: accent, whiteSpace: 'nowrap'}}>{name}</div>
+			<div style={{fontFamily: PIXEL, fontWeight: 700, fontSize: NAME_SIZE, lineHeight: 1, color: accent, whiteSpace: 'nowrap'}}>{name}</div>
 			<div style={{fontFamily: SANS, fontWeight: 500, fontSize: 56, color: C.text, marginTop: 30, lineHeight: 1.18}}>{line}</div>
 		</div>
 		<div style={{position: 'absolute', left: 90, right: 90, top: 440, bottom: 90, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>{children}</div>

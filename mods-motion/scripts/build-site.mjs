@@ -1,6 +1,7 @@
 // Builds the claude-plugins site into site/: an index page and one player page
 // per plugin, from the fragments in web/ (head tags, then <main>), plus the
 // player bundle, each film's poster and MP4 (rendered into out/ beforehand).
+import {createHash} from 'node:crypto';
 import {copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync} from 'node:fs';
 
 const css = readFileSync('web/site.css', 'utf8');
@@ -45,10 +46,13 @@ for (const p of plugins) {
 	}
 }
 
+/** Short content hash, so a changed poster is never served from a stale browser cache. */
+const hash = (file) => createHash('sha1').update(readFileSync(file)).digest('hex').slice(0, 8);
+
 const cards = plugins
 	.map(
 		(p) => `		<a class="card" href="${p.id}/">
-			<img src="${p.id}/poster.jpg" alt="${esc(p.id)}: ${esc(p.tagline)}" loading="lazy" width="1080" height="1080">
+			<img src="${p.id}/poster.jpg?v=${hash(`out/${p.id}.jpg`)}" alt="${esc(p.id)}: ${esc(p.tagline)}" loading="lazy" width="1080" height="1080">
 		</a>`,
 	)
 	.join('\n');
