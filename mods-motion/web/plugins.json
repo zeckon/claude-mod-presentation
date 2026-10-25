@@ -34,9 +34,9 @@
 		"accent": "clay",
 		"length": "1:30",
 		"tagline": "Turn a code change into an interactive lesson.",
-		"about": "",
+		"about": "What you can point /explain:diff at, what it reads before writing a word, the sections of the lesson it produces (diagrams, walkthrough, trade-offs, a scored quiz), and why it is a skill rather than a hook.",
 		"note": "Reads the repository and runs read-only git commands. Writes one HTML file under /tmp.",
 		"version": "0.1.0",
-		"poster": 150
+		"poster": 250
 	}
 ]
